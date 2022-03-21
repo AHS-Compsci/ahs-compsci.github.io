@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Evan's Page</title>
+    </head>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0px;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+    <body onload="points(); network();">
+        <canvas id="myCanvas">
+    </body>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext('2d');
+        var maxWidth = document.body.clientWidth;
+        var maxHeight = document.body.clientHeight;
+
+        var pixelSize = 3;
+        var pixels = 1000;
+
+        canvas.width = maxWidth;
+        canvas.height = maxHeight;
+
+        maxWidth = pixelSize * Math.floor(maxWidth / pixelSize - 2)
+        maxHeight = pixelSize * Math.floor(maxHeight / pixelSize - 2);
+        minWidth = pixelSize;
+        minHeight = pixelSize;
+
+        var pixelList = []
+        var x;
+        var y;
+        for(var i = 0; i < pixels; i++) {
+            x = Math.floor(Math.random() * maxWidth) + minWidth;
+            y = Math.floor(Math.random() * maxHeight) + minHeight;
+            pixelList[i] = [x,y];
+        }
+
+        function points() {
+            for(var i = 0; i < pixels; i++) {
+                context.fillRect(pixelList[i][0] - pixelSize/2, pixelList[i][1] - pixelSize/2, pixelSize, pixelSize);
+            }
+        }
+
+        function lines() {
+            for(var a = 0; a < pixelList.length; a++) {
+                var transformedList = [];
+                for(var b = 0; b < pixelList.length; b++) {
+                    var deltaX = pixelList[a][0] - pixelList[b][0];
+                    var deltaY = pixelList[a][1] - pixelList[b][1];
+                    var diff = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
+                    diff = Math.pow(diff, 0.5);
+                    diff = diff == 0 ? Number.POSITIVE_INFINITY : diff;
+                    transformedList[b] = diff;
+                }
+                var minValue = Math.min(...transformedList);
+                var minIndex = transformedList.indexOf(minValue);
+                var minPoint = pixelList[minIndex];
+
+                context.strokeStyle = 'black';
+                context.lineWidth = 1;
+
+                context.beginPath();
+                context.moveTo(pixelList[a][0], pixelList[a][1]);
+                context.lineTo(minPoint[0], minPoint[1]);
+                context.stroke();
+            }
+        }
+
+        function network() {
+            var distanceTable = [];
+            for(var a = 0; a < pixelList.length; a++) {
+                var transformedList = [];
+                for(var b = 0; b < pixelList.length; b++) {
+                    var deltaX = pixelList[a][0] - pixelList[b][0];
+                    var deltaY = pixelList[a][1] - pixelList[b][1];
+                    var diff = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
+                    diff = Math.pow(diff, 0.5);
+                    diff = diff == 0 ? Number.POSITIVE_INFINITY : diff;
+                    transformedList[b] = diff;
+                }
+                distanceTable[a] = transformedList;
+            }
+
+            var unNetworked = [];
+            for (var i = 1; i < pixelList.length; i++) {
+                unNetworked.push(i);
+            }
+            var networked = [0];
+
+            var toDraw = []; 
+
+            while(networked.length < pixelList.length) {
+                var minValue = Number.POSITIVE_INFINITY;
+                var lastMin = Number.POSITIVE_INFINITY;
+                var oldPoint;
+                var newPoint;
+                var currentValue;
+                for(var a = 0; a < networked.length; a++) {
+                    for(var b = 0; b < unNetworked.length; b++) {
+                        currentValue = distanceTable[networked[a]][unNetworked[b]]
+                        if(currentValue < minValue) {
+                            oldPoint = networked[a];
+                            newPoint = unNetworked[b];
+                            minValue = currentValue;
+                        }
+                    }
+                }
+                lastMin = minValue;
+                networked.push(newPoint);
+                unNetworked.splice(unNetworked.indexOf(newPoint),1);
+                toDraw.push([pixelList[oldPoint], pixelList[newPoint]]);
+            }
+
+            var i = 0;
+            function draw() {
+                if(i >= pixelList) return;
+                context.beginPath();
+                context.moveTo(toDraw[i][0][0], toDraw[i][0][1]);
+                context.lineTo(toDraw[i][1][0], toDraw[i][1][1]);
+                context.stroke();
+                i++
+            }
+
+            setInterval(draw, 40);
+        }
+    </script>
+</html>
