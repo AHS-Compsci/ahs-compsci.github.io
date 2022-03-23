@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Random Point Thing Settings</title>
+    </head>
+    <body>
+        <div>
+            <p><b>Network</b>: Generates a set of points and draws a network between them.</p>
+            <form>
+                <label for="pixels">Number of points:</label>
+                <input type="text" id="pixels" name="pixels" value=1000>
+                <br><br>
+                <label for="pixelSize">Point size in pixels:</label>
+                <input type="text" id="pixelSize" name="pixelSize" value=3>
+                <br><br>
+                <label for="time">Time delay in milliseconds:</label>
+                <input type="text" id="time" name="time" value=40>
+                <br><br>
+                <input type="button" name="button" value="Generate" onClick="network(this.form)">
+                <hr>
+            </form>
+        </div>
+    </body>
+    <script>
+        function network(form) {
+            var pixels = form.pixels.value;
+            var pixelSize = form.pixelSize.value;
+            var time = form.time.value;
+            window.open("https://ahs-compsci.github.io/random.html?pixels=" + pixels + "&pixelSize=" + pixelSize + "&time=" + time);
+        }
+    </script>
+</html>
