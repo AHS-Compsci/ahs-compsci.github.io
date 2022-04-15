@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Network Generator</title>
+    </head>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0px;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+    <body onload="points(); network();">
+        <canvas id="myCanvas">
+    </body>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext('2d');
+        var maxWidth = document.body.clientWidth;
+        var maxHeight = document.body.clientHeight;
+
+        var GET = {};
+        var query = window.location.search.substring(1).split("&");
+        for (var i = 0, max = query.length; i < max; i++)
+        {
+            if (query[i] === "") continue;
+
+            var param = query[i].split("=");
+            GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+        }
+
+        var pixelSize = 3;
+        if("pixelSize" in GET) {
+            pixelSize = parseInt(GET["pixelSize"]);
+        }
+
+        var pixels = 1000;
+        if("pixels" in GET) {
+            pixels = parseInt(GET["pixels"]);
+        }
+
+        var time = 40;
+        if("time" in GET) {
+            time = parseInt(GET["time"]);
+        }
+
+        canvas.width = maxWidth;
+        canvas.height = maxHeight;
+
+        maxWidth = pixelSize != 0 ? pixelSize * Math.floor(maxWidth / pixelSize - 2) : maxWidth;
+        maxHeight = pixelSize != 0 ? pixelSize * Math.floor(maxHeight / pixelSize - 2) : maxHeight;
+        minWidth = pixelSize;
+        minHeight = pixelSize;
+
+        var pixelList = []
+        var x;
+        var y;
+        for(var i = 0; i < pixels; i++) {
+            x = Math.floor(Math.random() * maxWidth) + minWidth;
+            y = Math.floor(Math.random() * maxHeight) + minHeight;
+            pixelList[i] = [x,y];
+        }
+
+        function points() {
+            for(var i = 0; i < pixels; i++) {
+                context.fillRect(pixelList[i][0] - pixelSize/2, pixelList[i][1] - pixelSize/2, pixelSize, pixelSize);
+            }
+        }
+
+        function network() {
+            var distanceTable = [];
+            for(var a = 0; a < pixelList.length; a++) {
+                var transformedList = [];
+                for(var b = 0; b < pixelList.length; b++) {
+                    var deltaX = pixelList[a][0] - pixelList[b][0];
+                    var deltaY = pixelList[a][1] - pixelList[b][1];
+                    var diff = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
+                    diff = Math.pow(diff, 0.5);
+                    diff = diff == 0 ? Number.POSITIVE_INFINITY : diff;
+                    transformedList[b] = diff;
+                }
+                distanceTable[a] = transformedList;
+            }
+
+            var unNetworked = [];
+            for (var i = 1; i < pixelList.length; i++) {
+                unNetworked.push(i);
+            }
+            var networked = [0];
+
+            function getMinDistance(networkPoint) {
+                var minValue = Number.POSITIVE_INFINITY;
+                var currentValue;
+                var newPoint;
+                for(var i = 0; i < unNetworked.length; i++) {
+                    currentValue = distanceTable[networkPoint][unNetworked[i]]
+                    if(currentValue < minValue) {
+                        newPoint = unNetworked[i];
+                        minValue = currentValue;
+                    }
+                }
+                var toReturn = [minValue, newPoint];
+                return toReturn;
+            }
+
+            var minDistances = [];
+            minDistances.push(getMinDistance(networked[0]));
+
+            //var sum = 0;
+            function draw() {
+                if(networked.length == pixelList.length) return;
+                //var startTime = performance.now();
+
+                var minValue = Number.POSITIVE_INFINITY;
+                var newPoint;
+                var oldPoint;
+                for(var i = 0; i < minDistances.length; i++) {
+                    if(minDistances[i][0] < minValue) {
+                        minValue = minDistances[i][0];
+                        newPoint = minDistances[i][1];
+                        oldPoint = networked[i];
+                    }
+                }
+
+                //console.log(minDistances);
+                //console.log(newPoint + " to " + oldPoint);
+
+                networked.push(newPoint);
+                unNetworked.splice(unNetworked.indexOf(newPoint),1);
+
+                context.beginPath();
+                context.moveTo(pixelList[oldPoint][0], pixelList[oldPoint][1]);
+                context.lineTo(pixelList[newPoint][0], pixelList[newPoint][1]);
+                context.stroke();
+
+                for(var i = 0; i < minDistances.length; i++) {
+                    if(minDistances[i][1] == newPoint) {
+                        minDistances[i] = getMinDistance(networked[i]);
+                    }
+                }
+                minDistances.push(getMinDistance(newPoint));
+
+                //var endTime = performance.now();
+
+                //sum += (endTime-startTime);
+                //console.log(sum/i);
+            }
+
+            setInterval(draw, time);
+        }
+    </script>
+</html>
