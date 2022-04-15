@@ -1,101 +1,107 @@
 <body>
     <title>Ancient Greek robot doctor</title>
-<h1>Treat disease like the greeks</h1>
-<form>
-<p id="content">Treatment appears here</p>
-<input type="text" id="Ailment" name="Ailment" value='input ailment here'>
-<br><br>
-<input type="button" name="button" value="Diagnose and Heal" onClick="logic(this.form)">
-</form>
-<script>
+    <h1>Treat disease like the greeks</h1>
+    <form onsubmit="event.preventDefault(); return false;">
+        <p id="content">Treatment appears here</p>
+        <input type="text" id="Ailment" name="Ailment" value='input ailment here'>
+        <br><br>
+        <input id="myBtn" type="button" name="button" value="Diagnose and Heal" onClick="logic(this.form)">
+    </form>
+    <script>
 
-function logic(form) {
-    var inputthing=form.Ailment.value;
-    if(inputthing=='vomit'){
-        document.write('You must have an overabundance of Black bile, you should consume mead and purge yourself');
-    }
-    else if(inputthing=='sneezing'){
-        document.write('you clearly have too much phlegm, to remedy this you should purge yourself with a clyster and practice bloodletting');
+        document.getElementById("Ailment").addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                document.getElementById("myBtn").click();
+            }
+        });
 
-    }
-    else if(inputthing=='coughing'){
-        document.write('consume the boiled milk of a donkey or drink saltwater until you throw up');
+        function logic(form) {
+            var inputthing = form.Ailment.value;
+            if (inputthing == 'vomit') {
+                document.write('You must have an overabundance of Black bile, you should consume mead and purge yourself');
+            }
+            else if (inputthing == 'sneezing') {
+                document.write('you clearly have too much phlegm, to remedy this you should purge yourself with a clyster and practice bloodletting');
 
-        
-    }
-    else if(inputthing=='wound'){
-        document.write('apply pressure to the wound but do not compress too much.');
-    }
-    else if(inputthing=='constipation'){
-        document.write('consume a watery and alcoholic honeyed vinegar mixture, then have a enema');
-
-    }
-    else if(inputthing=='diarrhea'){
-        document.write('to stop the diarrhea, wrap yourself in a shawl to warm the bowels and consume powdered grain and as little water as possible');
-
-    }
-    else if(inputthing=='fever'){
-        document.write('bleed profusely to lower tempature');
-    
-    }
-    else if(inputthing=='blood in stools'){
-        document.write('It appears that you are very sick, try bloodletting and an enema');
-    }
-    else if(inputthing=='wound infection'){
-        document.write('You should apply honey and galbanum to the wound and bathe it in cold water repeatedly, scrub gently, and then rebandage');
-
-    }
-    else if(inputthing=='pneumonia'){
-        document.write('Purge with an emetic, drain the lungs by inducing heavy coughing, and give a draught of vinegar and galbanum');
+            }
+            else if (inputthing == 'coughing') {
+                document.write('consume the boiled milk of a donkey or drink saltwater until you throw up');
 
 
-    }
-    else if(inputthing=='constricted veins'){
-        document.write('Massage with oils and administer strong wine');
-    }
-    else if(inputthing=='muscular pain'){
-        document.write('You may have over exercised, this can be remedied by thorogh rubbing of the afflicted area and the removal of some blood');
+            }
+            else if (inputthing == 'wound') {
+                document.write('apply pressure to the wound but do not compress too much.');
+            }
+            else if (inputthing == 'constipation') {
+                document.write('consume a watery and alcoholic honeyed vinegar mixture, then have a enema');
 
-    }
-    else if(inputthing=='poisoning'){
-        document.write('vomit and apply an enema and pray');
-    }
-    else if(inputthing=='heart attack'){
-        document.write('A most foul affliction, try to avoid recurrence by working hard and remaining abstinent, also eat dry foods and many fruits');
-    }
-    else if(inputthing=='intestinal pain'){
-        document.write('Consume many grapes and grape skins');
-    
-    }
-    else if(inputthing=='overheating'){
-        document.write('bloodlet and administer wine');
+            }
+            else if (inputthing == 'diarrhea') {
+                document.write('to stop the diarrhea, wrap yourself in a shawl to warm the bowels and consume powdered grain and as little water as possible');
 
-    }
-    else if(inputthing=='hypothermia'){
-        document.write('wrap in clothes, warm by heating');
-    }
-    else if(inputthing=='bleeding'){
-        document.write('apply the juice of a fig');
+            }
+            else if (inputthing == 'fever') {
+                document.write('bleed profusely to lower tempature');
 
-    }
-    else if(inputthing=='hemmorhoids'){
-        document.write('Tie the hemmorhoids to starve them of blood, and then remove them with a scalpel');
-    }
-    else if(inputthing=='watery eyes'){
-        document.write('mix ground copper,saffron and ebony and wine and apply to eyelids');
-    }
-    else if(inputthing=='burn'){
-        document.write('Apply oil of galbanum and water and let cool');
-    
-    }
-    else if(inputthing=='nausea'){
-        document.write('rest, and do not work or eat great amounts of food');
-    }
+            }
+            else if (inputthing == 'blood in stools') {
+                document.write('It appears that you are very sick, try bloodletting and an enema');
+            }
+            else if (inputthing == 'wound infection') {
+                document.write('You should apply honey and galbanum to the wound and bathe it in cold water repeatedly, scrub gently, and then rebandage');
+
+            }
+            else if (inputthing == 'pneumonia') {
+                document.write('Purge with an emetic, drain the lungs by inducing heavy coughing, and give a draught of vinegar and galbanum');
 
 
-}
+            }
+            else if (inputthing == 'constricted veins') {
+                document.write('Massage with oils and administer strong wine');
+            }
+            else if (inputthing == 'muscular pain') {
+                document.write('You may have over exercised, this can be remedied by thorogh rubbing of the afflicted area and the removal of some blood');
+
+            }
+            else if (inputthing == 'poisoning') {
+                document.write('vomit and apply an enema and pray');
+            }
+            else if (inputthing == 'heart attack') {
+                document.write('A most foul affliction, try to avoid recurrence by working hard and remaining abstinent, also eat dry foods and many fruits');
+            }
+            else if (inputthing == 'intestinal pain') {
+                document.write('Consume many grapes and grape skins');
+
+            }
+            else if (inputthing == 'overheating') {
+                document.write('bloodlet and administer wine');
+
+            }
+            else if (inputthing == 'hypothermia') {
+                document.write('wrap in clothes, warm by heating');
+            }
+            else if (inputthing == 'bleeding') {
+                document.write('apply the juice of a fig');
+
+            }
+            else if (inputthing == 'hemmorhoids') {
+                document.write('Tie the hemmorhoids to starve them of blood, and then remove them with a scalpel');
+            }
+            else if (inputthing == 'watery eyes') {
+                document.write('mix ground copper,saffron and ebony and wine and apply to eyelids');
+            }
+            else if (inputthing == 'burn') {
+                document.write('Apply oil of galbanum and water and let cool');
+
+            }
+            else if (inputthing == 'nausea') {
+                document.write('rest, and do not work or eat great amounts of food');
+            }
+
+
+        }
 
 
 
-</script>
+    </script>
 </body>
