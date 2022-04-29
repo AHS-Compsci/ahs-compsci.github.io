@@ -3,9 +3,33 @@
 <h1>Treat disease like the greeks</h1>
 <form>
 <p id="content">Treatment appears here</p>
-<input type="text" id="Ailment" name="Ailment" value='input ailment here'>
+<select id = "Ailment" onchange = "logic(this.form)" >  
+<option value="vomit">Vomit</option>
+<option value="'sneezing'">Sneezing</option>
+<option value="coughing">Coughing</option>
+<option value="wound">Wound</option>
+<option value="constipation">Constipation</option>
+<option value="diarrhea">Diarrhea</option>
+<option value="fever">Fever</option>
+<option value="blood in stools">Blood in stools</option>
+<option value="wound infection">Wound infection</option>
+<option value="pneumonia">Pneumonia</option>
+<option value="constricted veins">Constricted</option>
+<option value="muscular pain">Muscular pain</option>
+<option value="poisoning">Poisoning</option>
+<option value="heart attack">Heart attack</option>
+<option value="intestinal pain">Intestinal Pain</option>
+<option value="overheating">Overheating</option>
+<option value="hypothermia">Hypothermia</option>
+<option value="bleeding">Bleeding</option>
+<option value="hemmorhoids">Hemmorhoids</option>
+<option value="watery eyes">Watery eyes</option>
+<option value="burn">Burn</option>
+<option value="nausea">Nausea</option>
+
+</select>  
 <br><br>
-<input type="button" name="button" value="Diagnose and Heal" onClick="logic(this.form)">
+
 </form>
 <script>
 
