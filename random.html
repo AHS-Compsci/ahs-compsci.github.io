@@ -32,17 +32,17 @@
             GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
         }
 
-        var pixelSize = 3;
+        var pixelSize = 0;
         if("pixelSize" in GET) {
             pixelSize = parseInt(GET["pixelSize"]);
         }
 
-        var pixels = 1000;
+        var pixels = 10000;
         if("pixels" in GET) {
             pixels = parseInt(GET["pixels"]);
         }
 
-        var time = 40;
+        var time = 0;
         if("time" in GET) {
             time = parseInt(GET["time"]);
         }
