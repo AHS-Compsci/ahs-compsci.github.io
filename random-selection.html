@@ -1,54 +1,8 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <title>Simulator Settings</title>
+        <meta HTTP-EQUIV="REFRESH" content="0; url=https://straw17.github.io/random-selection.html">
     </head>
-    <body>
-        <div>
-            <p><b>Network</b>: Generates a set of points and draws a network between them.</p>
-            <form>
-                <label for="pixels">Number of points:</label>
-                <input type="text" id="pixels" name="pixels" value=10000>
-                <br><br>
-                <label for="pixelSize">Point size in pixels:</label>
-                <input type="text" id="pixelSize" name="pixelSize" value=0>
-                <br><br>
-                <label for="time">Time delay in milliseconds:</label>
-                <input type="text" id="time" name="time" value=0>
-                <br><br>
-                <input type="button" name="button" value="Generate" onClick="network(this.form)">
-                <hr>
-            </form>
-        </div>
-        <div>
-            <p><b>Random Walk</b>: Performs a random walk.</p>
-            <form>
-                <label for="steps">Number of steps:</label>
-                <input type="text" id="steps" name="steps" value=1000000>
-                <br><br>
-                <label for="pixelSize">Point size in pixels:</label>
-                <input type="text" id="pixelSize" name="pixelSize" value=1>
-                <br><br>
-                <label for="fidelity">Color fidelity:</label>
-                <input type="text" id="fidelity" name="fidelity" value=8>
-                <br><br>
-                <input type="button" name="button" value="Generate" onClick="walk(this.form)">
-                <hr>
-            </form>
-        </div>
-    </body>
-    <script>
-        function network(form) {
-            var pixels = form.pixels.value;
-            var pixelSize = form.pixelSize.value;
-            var time = form.time.value;
-            window.open("https://ahs-compsci.github.io/random.html?pixels=" + pixels + "&pixelSize=" + pixelSize + "&time=" + time);
-        }
-        function walk(form) {
-            var steps = form.steps.value;
-            var pixelSize = form.pixelSize.value;
-            var fidelity = form.fidelity.value;
-            window.open("https://ahs-compsci.github.io/random2.html?steps=" + steps + "&pixelSize=" + pixelSize + "&fidelity=" + fidelity);
-        }
-    </script>
 </html>
